@@ -11,6 +11,7 @@ const {
 } = require("./config/config");
 const session = require("express-session");
 const redis = require("redis");
+const cors = require("cors");
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient({
   host: REDIS_URL,
@@ -38,6 +39,8 @@ const connectWithRetry = () => {
 };
 
 connectWithRetry();
+
+app.use(cors());
 
 app.use(
   session({
